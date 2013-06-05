@@ -1,6 +1,6 @@
 #!/usr/bin/haserl
 <?
-	# This program is copyright © 2008-2010 Eric Bishop and is distributed under the terms of the GNU GPL 
+	# This program is copyright ?2008-2010 Eric Bishop and is distributed under the terms of the GNU GPL 
 	# version 2.0 with a special clarification/exception that permits adapting the program to 
 	# configure proprietary "back end" software provided that all modifications to the web interface
 	# itself remain covered by the GPL. 
@@ -19,8 +19,8 @@ var arpLines;
 var currentTime;
 <?
 	sh /usr/lib/gargoyle/define_host_vars.sh
-	wan_ip=$(uci -p /tmp/state get network.wan.ipaddr 2>/dev/null)
-	lan_ip=$(uci -p /tmp/state get network.lan.ipaddr 2>/dev/null)
+	wan_ip=$(uci -p /tmp/state get network.wan.ipaddr 2>/dev/null) 
+	lan_ip=$(uci -p /tmp/state get network.lan.ipaddr 2>/dev/null) 
 	echo "currentWanIp=\"$wan_ip\";"
 	echo "currentLanIp=\"$lan_ip\";"
 ?>
@@ -28,27 +28,27 @@ var currentTime;
 </script>
 
 <fieldset>
-	<legend>Refresh Rate</legend>
+	<legend>刷新频率</legend>
 	<select id="refresh_rate">
-		<option value="2000">2 Seconds</option>
-		<option value="10000">10 Seconds</option>
-		<option value="30000">30 Seconds</option>
-		<option value="60000">60 Seconds</option>
-		<option value="never">Never</option>
+		<option value="2000">2 秒</option>
+		<option value="10000">10 秒</option>
+		<option value="30000">30 秒</option>
+		<option value="60000">60 秒</option>
+		<option value="never">不刷新</option>
 	</select>
 	<br/>
-	<p><em>This specifies how frequently data on this page is reloaded</em></p>
+	<p><em>指定当前页面自动刷新频率</em></p>
 </fieldset>
 <fieldset id="dhcp_data">
-	<legend class="sectionHeader">Current DHCP Leases</legend>
+	<legend class="sectionHeader">当前的DHCP租约</legend>
 	<div id="lease_table_container"></div>
 </fieldset>
 <fieldset id="wifi_data">
-	<legend class="sectionheader">Connected Wireless Hosts</legend>
+	<legend class="sectionheader">已连接的无线主机</legend>
 	<div id="wifi_table_container"></div>
 </fieldset>
 <fieldset id="active_data">
-	<legend class="sectionheader">Hosts With Active Connections</legend>
+	<legend class="sectionheader">活动连接主机</legend>
 	<div id="active_table_container"></div>
 </fieldset>
 

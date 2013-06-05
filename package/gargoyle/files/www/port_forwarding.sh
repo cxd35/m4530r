@@ -1,11 +1,11 @@
 #!/usr/bin/haserl
 <?
-	# This program is copyright © 2008 Eric Bishop and is distributed under the terms of the GNU GPL
-	# version 2.0 with a special clarification/exception that permits adapting the program to
+	# This program is copyright © 2008 Eric Bishop and is distributed under the terms of the GNU GPL 
+	# version 2.0 with a special clarification/exception that permits adapting the program to 
 	# configure proprietary "back end" software provided that all modifications to the web interface
-	# itself remain covered by the GPL.
+	# itself remain covered by the GPL. 
 	# See http://gargoyle-router.com/faq.html#qfoss for more information
-	eval $( gargoyle_session_validator -c "$COOKIE_hash" -e "$COOKIE_exp" -a "$HTTP_USER_AGENT" -i "$REMOTE_ADDR" -r "login.sh" -t $(uci get gargoyle.global.session_timeout) -b "$COOKIE_browser_time"  )
+	eval $( gargoyle_session_validator -c "$COOKIE_hash" -e "$COOKIE_exp" -a "$HTTP_USER_AGENT" -i "$REMOTE_ADDR" -r "login.sh" -t $(uci get gargoyle.global.session_timeout) -b "$COOKIE_browser_time"  )	
 	gargoyle_header_footer -h -s "firewall" -p "portforwarding" -c "internal.css" -j "port_forwarding.js  table.js" gargoyle -i firewall network dropbear upnpd
 ?>
 
@@ -26,41 +26,42 @@
 
 <form>
 	<fieldset>
-		<legend class="sectionheader">Individual Port Forwarding</legend>
+		<legend class="sectionheader">单独端口转发</legend>
 
 		<div id='portf_add_heading_container'>
-			<label class='nocolumn' id='portf_add_heading_label'>Forward Individual Ports From WAN to LAN:</label>
+			<label class='nocolumn' id='portf_add_heading_label'>从WAN到LAN的端口转发:</label>
 		</div>
 		<div class='bottom_gap'>
 			<div id='portf_add_container'>
-				<? cat templates/single_forward_template ?>
+				<? cat templates/single_forward_template ?>				
 			</div>
 		</div>
-
-		<div id='portf_table_container' class="bottom_gap"></div>
+		
+		<div id='portf_table_container' class="bottom_gap"></div>	
 	</fieldset>
 
+
 	<fieldset>
-		<legend class="sectionheader">Port Range Forwarding</legend>
-
+		<legend class="sectionheader">端口范围转发</legend>
+		
 		<div id='portfrange_add_heading_container'>
-			<label class='nocolumn' id='portf_add_heading_label'>Forward Port Range From WAN to LAN:</label>
+			<label class='nocolumn' id='portf_add_heading_label'>从WAN到LAN的端口范围转发:</label>
 		</div>
-
+		
 		<div class='bottom_gap'>
 			<div id='portfrange_add_container'>
-				<? cat templates/multi_forward_template ?>
+				<? cat templates/multi_forward_template ?>	
 			</div>
 		</div>
-
-		<div id='portfrange_table_container' class="bottom_gap"></div>
+		
+		<div id='portfrange_table_container' class="bottom_gap"></div>		
 	</fieldset>
 
 	<fieldset>
 		<legend class="sectionheader">DMZ</legend>
 		<div id='dmz_enabled_container'>
 			<input type='checkbox' id='dmz_enabled' onclick="setDmzEnabled()" />
-			<label id='dmz_enabled_label' for='dmz_enabled'>Use DMZ (De-Militarized Zone)</label>
+			<label id='dmz_enabled_label' for='dmz_enabled'>启用 DMZ (De-Militarized Zone)</label>
 		</div>
 		<div id="dmz_ip_container" class="indent">
 			<label class='leftcolumn' for='dmz_ip' id='dmz_ip_label'>DMZ IP:</label>
@@ -68,15 +69,17 @@
 		</div>
 	</fieldset>
 
+	
 	<fieldset>
 		<legend class="sectionheader">UPnP / NAT-PMP</legend>
 		<div id='upnp_enabled_container'>
 			<input type='checkbox' id='upnp_enabled' onclick="setUpnpEnabled()" />
-			<label id='upnp_enabled_label' for='upnp_enabled'>Enable UPnP &amp; NAT-PMP service</label>
+			<label id='upnp_enabled_label' for='upnp_enabled'>启用 UPnP &amp; NAT-PMP 服务</label>
 		</div>
 
+
 		<div id='upnp_table_heading_container'>
-			<span class='nocolumn'>Active port forwards:</span>
+			<span class='nocolumn'>已启用的端口转发:</span>
 		</div>
  
 		<br>
@@ -86,7 +89,7 @@
 		</div>
 
 		<div id='upnp_up_container'>
-			<label class='leftcolumn' for='upnp_up' id='upnp_up_label'>Upload speed to report:</label>
+			<label class='leftcolumn' for='upnp_up' id='upnp_up_label'>上传速度报告:</label>
 			<span class = 'rightcolumn'>
 				<input type='text' class='rightcolumn' id='upnp_up' onkeyup='proofreadNumeric(this)' size='5' maxlength='5' />
 				<em>Kbytes / second</em>
@@ -94,11 +97,12 @@
 		</div>
 
 		<div id='upnp_down_container'>
-			<label class='leftcolumn' for='upnp_down' id='upnp_down_label'>Download speed to report:</label>
+			<label class='leftcolumn' for='upnp_down' id='upnp_down_label'>下载速度报告:</label>
 			<span class='rightcolumn'>
 				<input type='text' id='upnp_down' onkeyup='proofreadNumeric(this)' size='5' maxlength='5' />
 				<em>Kbytes / second</em>
 			</span>
+
 
 		<div id="upnp_help" class="indent">
 		<span id='upnp_help_txt'>
@@ -125,14 +129,16 @@
 		</div>
 
 	</fieldset>
-
+	
+	
 	<div id="bottom_button_container">
-		<input type='button' value='Save Changes' id="save_button" class="bottom_button" onclick='saveChanges()' />
-		<input type='button' value='Reset' id="reset_button" class="bottom_button" onclick='resetData()'/>
+		<input type='button' value='保存设置' id="save_button" class="bottom_button" onclick='saveChanges()' />
+		<input type='button' value='重设' id="reset_button" class="bottom_button" onclick='resetData()'/>
 	</div>
 	<span id="update_container" >Please wait while new settings are applied. . .</span>
 
 </form>
+
 
 <!-- <br /><textarea style="margin-left:20px;" rows=30 cols=60 id='output'></textarea> -->
 
@@ -141,6 +147,7 @@
 	resetData();
 //-->
 </script>
+
 
 <?
 	gargoyle_header_footer -f -s "firewall" -p "portforwarding"

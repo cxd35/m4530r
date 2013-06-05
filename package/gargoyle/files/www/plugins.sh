@@ -1,11 +1,24 @@
 #!/usr/bin/haserl
 <?
-	# Copyright © 2012 Eric Bishop, © 2011 Cezary Jackiewicz <cezary@eko.one.pl>
-	# and is distributed under the terms of the GNU GPL
-	# version 2.0 with a special clarification/exception that permits adapting the program to
-	# configure proprietary "back end" software provided that all modifications to the web interface
-	# itself remain covered by the GPL.
-	# See http://gargoyle-router.com/faq.html#qfoss for more information
+#
+#       Copyright (c) 2011 Cezary Jackiewicz <cezary@eko.one.pl>
+#       Copyright (c) 2012 Eric Bishop <eric@gargoyle-router.com>
+#
+#      This program is free software; you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation; either version 2 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program; if not, write to the Free Software
+#      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#      MA 02110-1301, USA.
+
 	eval $( gargoyle_session_validator -c "$COOKIE_hash" -e "$COOKIE_exp" -a "$HTTP_USER_AGENT" -i "$REMOTE_ADDR" -r "login.sh" -t $(uci get gargoyle.global.session_timeout) -b "$COOKIE_browser_time"  )
 	gargoyle_header_footer -h -s "system" -p "plugins" -c "internal.css" -j "table.js plugins.js" gargoyle
 ?>
@@ -20,7 +33,7 @@
 		ln -s /var /plugin_root/var
 	fi
 	if [ ! -d '/var/opkg-lists' ] ; then
-		mkdir -p '/var/opkg-lists'
+		mkdir -p '/var/opkg-lists' 
 	fi
 	plug_root_dest=$( awk '$1 == "dest" && $3 == "/plugin_root" ' /etc/opkg.conf 2>/dev/null )
 	if [ -z "$plug_root_dest" ] ; then
@@ -33,66 +46,70 @@
 	else
 		printf "%s\n" "$opkg_defs" 
 	fi
-
+	
 	echo "var pluginSources = [];"
 	awk  '$0 ~ /^src.gz/  { print "pluginSources.push([\"" $2 "\", \"" $3 "\"])" ; }' /etc/opkg.conf 2>/dev/null
 
 	echo "var storageDrives = [];"
 	awk '{ print "storageDrives.push([\""$1"\",\""$2"\",\""$3"\",\""$4"\", \""$5"\", \""$6"\"]);" }' /tmp/mounted_usb_storage.tab 2>/dev/null
 
+	
+
 ?>
 
 </script>
 <form>
-
+	
 	<fieldset id="plugin_options">
-		<legend class="sectionheader">Plugin Options</legend>
-
+		<legend class="sectionheader">插件选项</legend>
+		
 		<div>
-			<span class="narrowleftcolumn">Plugin Root:</span>
+			<span class="narrowleftcolumn">插件路径:</span>
 			<span id="plugin_root_static" class="widerightcolumn">/plugin_root</span>
 			<input type="text" id="plugin_root_text" class="widerightcolumn" style="display:none" />
 		</div>
 		<div>
-			<span id="plugin_root_drive_static" class="widerightcolumnonly" for="plugin_root_drive_select">Root Drive</span>
+			<span id="plugin_root_drive_static" class="widerightcolumnonly">Root Drive</span>
 			<select id="plugin_root_drive_select" class="widerightcolumnonly" onchange="updatePluginRootDisplay()" style="display:none"></select>
 		</div>
 		<div id="plugin_root_change_container" style="display:none" >
 			<span class="widerightcolumnonly" >
-				<input type="button" class="default_button" value="Change Plugin Root" onclick="changePluginRoot()" />
+				<input type="button" class="default_button" value="更改插件路径" onclick="changePluginRoot()" />
 			</span>
 		</div>
 		<br/>
 
+
 		<div>
-			<span class="leftcolumn">Plugin Sources:</span>
+			<span class="leftcolumn">插件来源:</span>
 		</div>
 		<div id="package_source_table_container" style="margin-left:5px;" ></div>
 		<div class="indent">
 			<div>
-				<label class="narrowleftcolumn" for="add_source_name">Add Name:</label>
+				<label class="narrowleftcolumn" for="add_source_name">添加名称:</label>
 				<input type="text" class="widerightcolumn" id="add_source_name" onkeyup="proofreadSourceName(this)" style="width:325px;"/>
 			</div>
 			<div>
-				<label class="narrowleftcolumn" for="add_source_url">Add URL:</label>
+				<label class="narrowleftcolumn" for="add_source_url">添加URL:</label>
 				<input type="text" class="widerightcolumn" id="add_source_url" style="width:325px;"/>
 			</div>
-
-			<span class="leftcolumn"><input type="button" class="default_button" id="add_source_button" value="Add Plugin Source" onclick="addPluginSource()" /></span>
-
+			
+			<span class="leftcolumn"><input type="button" class="default_button" id="add_source_button" value="添加插件来源" onclick="addPluginSource()" /></span>
+			
 		</div>
 	</fieldset>
 
+
 	<fieldset id="plugin_list">
-		<legend class="sectionheader">Plugin List</legend>
+		<legend class="sectionheader">插件列表</legend>
 		<div>
 			<div id="packages_table_container" style="margin-left:5px" ></div>
 		</div>
 		<div id="no_packages" style='display:none;'>
-			Packages not found. Refresh plugins list.
+			没有发现软件包. 刷新插件列表.
 		</div>
 		<div id="bottom_button_container">
-			<input type='button' value='Refresh Plugins' id="update_button" class="bottom_button" onclick='updatePackagesList()' />
+			<input type='button' value='刷新插件' id="update_button" class="bottom_button" onclick='updatePackagesList()' />
 		</div>
 	</fieldset>
 

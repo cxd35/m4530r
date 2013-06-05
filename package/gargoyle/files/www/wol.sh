@@ -1,6 +1,6 @@
 #!/usr/bin/haserl
 <?
-	# This program is copyright © 2008-2012 Eric Bishop and is distributed under the terms of the GNU GPL
+	# This program is copyright ?2008-2012 Eric Bishop and is distributed under the terms of the GNU GPL
 	# version 2.0 with a special clarification/exception that permits adapting the program to
 	# configure proprietary "back end" software provided that all modifications to the web interface
 	# itself remain covered by the GPL.
@@ -32,7 +32,7 @@ var arpLines;
 </script>
 
 <fieldset id="wol_data">
-	<legend class="sectionheader">Wake on LAN</legend>
+	<legend class="sectionheader">网络唤醒</legend>
 
 	<div id="wol_table_container"></div>
 
